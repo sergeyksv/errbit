@@ -1,5 +1,6 @@
 class AddAckedFlagToProblem < Mongoid::Migration
   def change
-    add_column	:acked, :type => Boolean, :default => false
+    puts "Add acked flag to problem"
+    add_column	:problem, :acked, :type => Boolean, :default => false
   end
 end
