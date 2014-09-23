@@ -46,7 +46,7 @@
             = link_to image_tag("ok.png"), resolve_app_problem_path(problem.app, problem),
             :title => "Resolve", :method => :put, :data => { :confirm => problem_confirm('resolve_one') },
             :class => 'resolve' if problem.unresolved?
-            = link_to image_tag("gg_ignore.png"), ack_app_problem_path(problem.app, problem),
+            = link_to image_tag("ignore.png"), ack_app_problem_path(problem.app, problem),
             :title => "Acknoledge", :method => :put, :data => { :confirm => problem_confirm('ack_one') },
             :class => 'ack' if problem.nak?
       - if problems.none?

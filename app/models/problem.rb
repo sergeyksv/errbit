@@ -35,6 +35,7 @@ class Problem
   index :last_deploy_at => 1
   index :resolved_at => 1
   index :notices_count => 1
+  index :acked =>1, :last_notice_at => 1
 
   belongs_to :app
   has_many :errs, :inverse_of => :problem, :dependent => :destroy
