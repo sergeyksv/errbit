@@ -20,12 +20,16 @@ class AppsController < ApplicationController
   expose(:all_errs) {
     !!params[:all_errs]
   }
+
+  expose(:active_errs) {
+    !!params[:active_errs]
+  }
   expose(:problems) {
     if request.format == :atom
       app.problems.unresolved.ordered
     else
       pr = app.problems
-      pr = pr.unresolved unless all_errs
+      pr = active_errs ? pr.unresolved : pr.noticeable unless all_errs
       pr.in_env(
         params[:environment]
       ).ordered_by(params_sort, params_order).page(params[:page]).per(current_user.per_page)

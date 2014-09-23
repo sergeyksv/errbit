@@ -74,9 +74,12 @@ en:
       delete: "Permanently delete selected issues?"
       resolve: "Resolve selected issues? They can be unresolved later."
       resolve_one: "Resolve this issue? It can be unresolved later."
+      ack: "Acknowledge selected issues? They can be unacknowledged later."
+      ack_one: "Acknowledge this issue? It can be unacknowleded later."
       merge: "Merge select issues? They can be unmerged later."
       unmerge: "Unmerge selected issues? They can be re-merged later."
       unresolve: "Unresolve selected issues? They can be resolved again later."
+      nak: "Unacknowledge selected issues? They can be acknowledged later."
 
   comments:
     confirm_delete: "Permanently delete this comment?"
@@ -101,6 +104,7 @@ en:
     show:
       all_deploys: "All Deploys (%{count})"
       all_errs: all errs
+      active_errs: all but resolved
       all_users_notified: "All users will be notified when something happens."
       api_key: "API Key:"
       are_you_sure: 'Are you sure?'

@@ -635,6 +635,11 @@ td.count, td.issue_link {
   background: #05B81d url(<%= asset_path "images/resolved-badge-bg.png" %>) 0 bottom repeat-x;
   border: 1px solid #080;
 }
+
+.count a.acked {
+  background: #FFA500;
+  border: 1px solid #080;
+}
 .count a:hover {
   text-decoration: none;
   opacity: 1;
@@ -650,6 +655,10 @@ table.errs td.app {
 table.errs td.app .environment {
   font-size: 0.8em;
   color: #999;
+}
+table.errs td.resolve a {
+  display: inline-block;
+  float: left;
 }
 table.errs td.message a {
   display: block;

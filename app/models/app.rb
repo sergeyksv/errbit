@@ -156,6 +156,10 @@ class App
     @unresolved_count ||= problems.unresolved.count
   end
 
+  def noticeable_count
+    @noticeable_count ||= problems.noticeable.count
+  end
+
   def problem_count
     @problem_count ||= problems.count
   end

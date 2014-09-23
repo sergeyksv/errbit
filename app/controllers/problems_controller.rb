@@ -30,6 +30,10 @@ class ProblemsController < ApplicationController
     params[:all_errs]
   }
 
+  expose(:acked) {
+    params[:acked]
+  }
+
   expose(:app_scope) {
     apps = current_user.admin? ? App.all : current_user.apps
     params[:app_id] ? apps.where(:_id => params[:app_id]) : apps
@@ -85,9 +89,29 @@ class ProblemsController < ApplicationController
     redirect_to app_path(app)
   end
 
+  def ack
+    problem.ack!
+    flash[:success] = 'Great news everyone! The err has been acknowledged.'
+    redirect_to :back
+  rescue ActionController::RedirectBackError
+    redirect_to app_path(app)
+  end
+
+  def ack_several
+    selected_problems.each(&:ack!)
+    flash[:success] = "Great news everyone! #{I18n.t(:n_errs_have, :count => selected_problems.count)} been acknowledged."
+    redirect_to :back
+  end
+
   def resolve_several
     selected_problems.each(&:resolve!)
     flash[:success] = "Great news everyone! #{I18n.t(:n_errs_have, :count => selected_problems.count)} been resolved."
+    redirect_to :back
+  end
+
+  def nak_several
+    selected_problems.each(&:nak!)
+    flash[:success] = "#{I18n.t(:n_errs_have, :count => selected_problems.count)} been unacknowledged."
     redirect_to :back
   end
 

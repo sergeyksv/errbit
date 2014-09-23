@@ -19,6 +19,8 @@ Errbit::Application.routes.draw do
       post :destroy_several
       post :resolve_several
       post :unresolve_several
+      post :ack_several
+      post :nak_several
       post :merge_several
       post :unmerge_several
       get :search
@@ -35,6 +37,7 @@ Errbit::Application.routes.draw do
       end
 
       member do
+        put :ack
         put :resolve
         put :unresolve
         post :create_issue

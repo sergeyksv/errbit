@@ -13,6 +13,7 @@ class Problem
   field :resolved_at, :type => Time
   field :issue_link, :type => String
   field :issue_type, :type => String
+  field :acked, :type => Boolean, :default => false
 
   # Cached fields
   field :app_name, :type => String
@@ -45,7 +46,8 @@ class Problem
 
   scope :resolved, where(:resolved => true)
   scope :unresolved, where(:resolved => false)
-  scope :ordered, order_by(:last_notice_at.desc)
+  scope :noticeable, where(:resolved => false, :acked=>false)
+  scope :ordered, order_by(:acked.desc, :last_notice_at.desc)
   scope :for_apps, lambda {|apps| where(:app_id.in => apps.all.map(&:id))}
 
   validates_presence_of :last_notice_at, :first_notice_at
@@ -54,7 +56,7 @@ class Problem
     if fetch_all
       all
     else
-      where(:resolved => false)
+      where(:resolved => false, :acked => false)
     end
   end
 
@@ -71,7 +73,15 @@ class Problem
   end
 
   def resolve!
-    self.update_attributes!(:resolved => true, :resolved_at => Time.now)
+    self.update_attributes!(:resolved => true, :resolved_at => Time.now, :acked => true)
+  end
+
+  def ack!
+    self.update_attributes!(:acked => true)
+  end
+
+  def nak!
+    self.update_attributes!(:acked => false)
   end
 
   def unresolve!
@@ -82,6 +92,9 @@ class Problem
     !resolved?
   end
 
+  def nak?
+    !acked?
+  end
 
   def self.merge!(*problems)
     ProblemMerge.new(problems).merge
